@@ -79,7 +79,6 @@
       const thisProduct = this;
       /* find the clickable trigger (the element that should react to clicking) */
       const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
-
       /* START: add event listener to clickable trigger on event click */
       clickableTrigger.addEventListener('click', function(event) {
       /* prevent default action for event */
@@ -90,11 +89,9 @@
         if(activeProduct != null  && activeProduct != thisProduct.element) {
           activeProduct.classList.remove(classNames.menuProduct.wrapperActive);
         }
-        
         /* toggle active class on thisProduct.element */
         thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
       });
-
     }
 
   }
