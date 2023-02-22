@@ -110,6 +110,8 @@ export const settings = {
     orders: 'orders',
     bookings: 'bookings',
     events: 'events',
+    bookings: 'bookings',
+    events: 'events',
     dateStartParamKey: 'date_gte',
     dateEndParamKey: 'date_lte',
     notRepeatParam: 'repeat=false',
