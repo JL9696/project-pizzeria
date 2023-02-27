@@ -3,6 +3,7 @@ export const select = {
     menuProduct: '#template-menu-product',
     cartProduct: '#template-cart-product',
     bookingWidget: '#template-booking-widget',
+    homePage: '#template-home',
   },
   containerOf: {
     menu: '#product-list',
@@ -10,6 +11,8 @@ export const select = {
     pages: '#pages',
     booking: '.booking-wrapper',
     tableContainer: '.floor-plan',
+    home: '.home-wrapper',
+    carousel: '.main-carousel'
   },
   all: {
     menuProducts: '#product-list > .product',
@@ -53,6 +56,7 @@ export const select = {
   },
   nav: {
     links: '.main-nav a',
+    pictureLinks: '.picture-wrapper a',
   },
   cart: {
     productList: '.cart__order-summary',
@@ -95,13 +99,13 @@ export const classNames = {
   },
   table: {
     tableSelected: 'selected',
-  },
+  }
 };
 export const settings = {
   amountWidget: {
     defaultValue: 1,
-    defaultMin: 0,
-    defaultMax: 10,
+    defaultMin: 1,
+    defaultMax: 9,
   },
   cart: {
     defaultDeliveryFee: 20,
@@ -132,4 +136,5 @@ export const templates = {
   menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
   bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),
+  home: Handlebars.compile(document.querySelector(select.templateOf.homePage).innerHTML),
 };

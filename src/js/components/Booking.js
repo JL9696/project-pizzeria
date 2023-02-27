@@ -206,7 +206,7 @@ class Booking {
       thisBooking.updateDOM();
     });
 
-    // const selectedTable = [];
+    const selectedTable = [];
 
     thisBooking.dom.tableContainer.addEventListener('click', function(event){
       event.preventDefault();
@@ -225,19 +225,19 @@ class Booking {
         thisBooking.updateDOM();
         const tableId = table.getAttribute(settings.booking.tableIdAttribute);
         table.classList.add(classNames.booking.tableSelected);
-        // selectedTable.pop();
-        // selectedTable.push(tableId);
-        thisBooking.selectedTable = tableId;
+        selectedTable.pop();
+        selectedTable.push(tableId);
       }
     });
 
     const validatePhoneNumber = /^\d{9}$/;
+    const validateAddress = 10;
     
 
     thisBooking.dom.bookTableBtn.addEventListener('click', function(event){
       event.preventDefault();
 
-      if (thisBooking.selectedTable == null) {
+      if (!selectedTable[0]) {
         return window.alert('choose a table');
       }
 
@@ -245,11 +245,11 @@ class Booking {
         return window.alert('Please enter a valid phone number (min 9 digits)');
       }
 
-      if (thisBooking.dom.address.value.length < 15) {
-        return window.alert('Please enter a valid address (required more than 15 letters and numbers)');
+      if (thisBooking.dom.address.value.length < validateAddress) {
+        return window.alert('Please enter a valid address (required more than ' + validateAddress + ' letters and numbers)');
       }
 
-      thisBooking.sendBooking();
+      thisBooking.sendBooking(selectedTable);
 
       if(thisBooking.sendBooking) {
         thisBooking.dom.phone.value = '',
@@ -266,11 +266,11 @@ class Booking {
     const url = settings.db.url + '/' + settings.db.bookings;
 
     const payload = {
-      date: thisBooking.date.value,
+      date: thisBooking.date,
       hour:  thisBooking.hourPicker.value,
-      table: thisBooking.selectedTable,
-      duration: thisBooking.dom.duration.value,
-      ppl: thisBooking.dom.ppl.value,
+      table: parseInt(thisBooking.selectedTable),
+      duration: parseInt(thisBooking.dom.duration.value),
+      ppl: parseInt(thisBooking.dom.ppl.value),
       starters: [],
       phone: thisBooking.dom.phone.value,
       address: thisBooking.dom.address.value,
@@ -293,9 +293,12 @@ class Booking {
     fetch(url, options)
       .then(function(response){
         return response.json();
-      }).then(function(){
+      }).then(function(parsedResponse){
         alert('Thank you for booking a table');
+        thisBooking.makeBooked(parsedResponse.date, parsedResponse.hour, parsedResponse.duration, parsedResponse.table);
         thisBooking.updateDOM();
+        thisBooking.dom.phone.value = '';
+        thisBooking.dom.address.value = '';
       });
   }
 }
